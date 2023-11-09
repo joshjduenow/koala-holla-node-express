@@ -8,7 +8,7 @@ function getKoalas(){
     url: '/koalas'
   }).then(function (response) {
     console.log('getKoalas() response', response.data);
-    // renderBooks(response.data);
+      renderKoalas(response.data);
   }).catch(function (error) {
     console.log('error in GET', error);
   });
@@ -31,12 +31,41 @@ function addKoala(event) {
     data: incKoala,
   }).then(function (response) {
     console.log('incKoala()', response.data);
-    // refreshBooks();
+      getKoalas();
   }).catch(function (error) {
     console.log('Error in POST', error)
     alert('Unable to add Koala at this time. Please try again later.');
   });
 }
+function renderKoalas(koalas) {
+  console.log(koalas);
+  const viewKoalas = document.getElementById('viewKoalas')
+  viewKoalas.innerHTML = '';
+    
+    for (let koala of koalas) {
+
+    // let readButtonText = 'Read'
+    // if (book.isRead === true) {
+    //   readButtonText = '🥹'
+    // }
+
+    // For each book, append a new row to our table
+    viewKoalas.innerHTML += `
+      <tr data-koalaId="${koala.id}">
+        <td>${koala.name}</td>
+        <td>${koala.age}</td>
+        <td>${koala.gender}</td>
+        <td>${koala.transfer}</td>
+        <td>${koala.notes}</td>
+        <td><button onclick="deleteBook(event)">Delete</button></td>
+   
+
+      </tr>
+    `}
+    // <td><button onclick="checkRead(event)">${readButtonText}</button></td>
+
+  }
+
 function saveKoala(){
   console.log( 'in saveKoala' );
   // axios call to server to get koalas
