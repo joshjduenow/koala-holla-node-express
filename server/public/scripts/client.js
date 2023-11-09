@@ -43,20 +43,23 @@ function renderKoalas(koalas) {
   viewKoalas.innerHTML = '';
 
   for (let koala of koalas) {
-    let koalaDisplay = ` <tr data-koalaId="${koala.id}">
+    viewKoalas.innerHTML += ` <tr data-koalaId="${koala.id}">
       <td>${koala.name}</td>
       <td>${koala.age}</td>
       <td>${koala.gender}</td>
       <td>${koala.transfer}</td>
       <td>${koala.notes}</td>
-      <td><button onclick="deleteKoala(event)">Delete</button>`
-      viewKoalas.innerHTML += koalaDisplay
-    if (koala.transfer === false) {
-        viewKoalas.innerHTML += `
-        <button class="transferButton" onclick="saveKoala(event,${koala.id})">Ready for Transfer</button>` 
-        }
-        viewKoalas.innerHTML += `</td></tr>`
-    }
+      <td><button onclick="deleteKoala(event)">Delete</button>
+      <td>${koala.transfer != true ? `<button onclick="saveKoala(event,${koala.id})">Transfer</button>`:''}</td>
+      </tr>`
+      //  viewKoalas.innerHTML += koalaDisplay
+    // if (koala.transfer === false) {
+    //     viewKoalas.innerHTML += 
+        
+    //     <button onclick="saveKoala(event,${koala.id})">Transfer</button> 
+    //     }
+    //     viewKoalas.innerHTML += </td></tr>
+   }
 }
 function deleteKoala(event) {
   event.preventDefault();
