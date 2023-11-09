@@ -36,8 +36,36 @@ router.post('/', (req, res) => {
 });
 
 // PUT
+router.put('/:id', (req, res) => {
+    let idToUpdate = req.params.id;
+    let queryText = 'UPDATE "allKoalas" SET "transfer" = true WHERE "id" = $1;';
+
+    const sqValues = [idToUpdate]
+    pool.query(queryText, sqValues)
+        .then((result) => {
+            res.sendStatus(200);
+        })
+        .catch((dbError) => {
+            console.log("mark koala transfer failed", dbError);
+            res.sendStatus(500);
+        })
+});
 
 
 // DELETE
+router.delete('/:id', (req, res) => {
+    let idToDelete = req.params.id;
+    let queryText = 'DELETE FROM "allKoalas" WHERE "id" = $1;';
+
+    const sqValues = [idToDelete]
+    pool.query(queryText, sqValues)
+        .then((result) => {
+            res.sendStatus(200);
+        })
+        .catch((dbError) => {
+            console.log("delete koala failed", dbError);
+            res.sendStatus(500);
+        })
+});
 
 module.exports = router;
